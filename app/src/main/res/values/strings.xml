@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BetOnIt</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">HN4zvsNdFVKCysvRvkofvxiH0siW8FJpUuNc9htf</string>
+    <string name="back4app_client_key">HoK9JoBJTyHpwKiKthv5TZT1pXUr7qMTuKf4KpHo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Blank Fragment</string>
+    <string name="rated_cases_fragment">Rated Cases Fragment</string>
+    <string name="pending_cases_fragment">Pending Cases Fragment</string>
+    <string name="my_cases_fragment">My Cases Fragment</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+</resources>
