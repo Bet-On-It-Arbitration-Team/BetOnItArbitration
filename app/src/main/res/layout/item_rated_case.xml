@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/trRatedCaseItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="*">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow
+        android:id="@+id/trRatedCaseItemRow">
+
+        <TextView
+            android:id="@+id/tvRatedCaseBetName"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="Push Up Challenge - Allen vs Triplett"></TextView>
+
+        <TextView
+            android:id="@+id/tvRatedCaseDateAssigned"
+            android:gravity="center"
+            android:inputType="date"
+            android:maxLines="2"
+            android:text="11/20/2020">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvRatedCaseDateDue"
+            android:gravity="center"
+            android:inputType="date"
+            android:maxLines="2"
+            android:text="11/28/2020"></TextView>
+    </TableRow>
+
+</TableLayout>

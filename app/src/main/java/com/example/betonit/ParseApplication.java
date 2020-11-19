@@ -12,7 +12,7 @@ public class ParseApplication extends Application {
         super.onCreate();
 
         // Register Model for Cases
-//        ParseObject.registerSubclass(Cases.class);
+        ParseObject.registerSubclass(Case.class);
 
         // Connect to Parse server
         Parse.initialize(new Parse.Configuration.Builder(this)
