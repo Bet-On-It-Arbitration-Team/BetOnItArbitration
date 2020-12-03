@@ -18,6 +18,7 @@ import com.example.betonit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +61,8 @@ public class MyCasesFragment extends Fragment {
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         // Define our query conditions
         query.whereEqualTo(Case.KEY_CASE_STATUS, "ARBITRATION");
-        query.include(Case.KEY_CASE_STATUS);
-        
+        query.whereEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser());
+
         query.findInBackground(new FindCallback<Case>() {
             public void done(List<Case> cases, ParseException e) {
                 if (e != null) {

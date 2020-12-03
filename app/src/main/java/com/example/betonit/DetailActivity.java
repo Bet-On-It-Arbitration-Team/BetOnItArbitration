@@ -15,12 +15,14 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String TAG = "DetailActivity";
     public String no;
+    public String user;
     TextView tvUsername;
     TextView status;
     TextView description1;
@@ -43,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         decline = findViewById(R.id.decline);
         accept = findViewById(R.id.accept);
 
-
+        final String parseUser = ParseUser.getCurrentUser().toString();
         final String stat = getIntent().getStringExtra("status");
         String desc1 = getIntent().getStringExtra("description1");
         String desc2 = getIntent().getStringExtra("description2");
@@ -53,6 +55,8 @@ public class DetailActivity extends AppCompatActivity {
 
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         query.whereEqualTo(Case.KEY_CASE_STATUS, stat);
+        query.whereEqualTo(Case.KEY_CASE_CHALLENGER_EVIDENCE, desc1);
+        query.whereEqualTo(Case.KEY_CASE_CHALLENGEE_EVIDENCE, desc2);
         query.findInBackground(new FindCallback<Case>() {
             public void done(List<Case> cases, ParseException e) {
                 if (e != null) {
@@ -61,6 +65,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 for (Case case1 : cases) {
                     no = case1.getObjectId();
+
                     Log.i(TAG, "MyCase: " + case1.getKeyCaseBetId().getObjectId().toString());
                     Log.i(TAG, "Arbitrator: " + case1.getKeyCaseBetId().getObjectId().toString());
                 }
@@ -87,6 +92,8 @@ public class DetailActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Case Has been Accepted", Toast.LENGTH_LONG).show();
                         }
                         event.put("case_Status", "ARBITRATION");
+                        event.setKeyCaseArbitrator(ParseUser.getCurrentUser());
+                        //event.put("case_Arbitrator", "BBkTRVg4nb");
                         event.saveInBackground();
                         Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
@@ -97,9 +104,9 @@ public class DetailActivity extends AppCompatActivity {
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseQuery<ParseObject> query = new ParseQuery("Case");
-                query.getInBackground(no, new GetCallback<ParseObject>() {
-                    public void done(ParseObject event, ParseException e) {
+                ParseQuery<Case> query = new ParseQuery("Case");
+                query.getInBackground(no, new GetCallback<Case>() {
+                    public void done(Case event, ParseException e) {
                         if (e == null) {
 
                             Toast.makeText(getApplicationContext(), "Case has been rejected", Toast.LENGTH_LONG).show();
