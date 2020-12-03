@@ -1,6 +1,5 @@
 package com.example.betonit;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,24 +15,12 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
-import java.util.Date;
 import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String TAG = "DetailActivity";
-    protected CaseAdapter adapter;
-    private Context context;
-    protected List<Case> allPosts;
     public String no;
-    Case post;
-    public Date start_date;
-    public Date end_date;
-    public String user2 = "I am user2's explanation";
-    public String user1 = "I am user1's explanation";
-    String objectID;
     TextView tvUsername;
     TextView status;
     TextView description1;
@@ -42,9 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     Button decline;
     Button accept;
 
-    /*public DetailActivity(Case post) {
-        this.post = post;
-    }*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +42,7 @@ public class DetailActivity extends AppCompatActivity {
         prevclass = findViewById(R.id.retbtn);
         decline = findViewById(R.id.decline);
         accept = findViewById(R.id.accept);
-        /*post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Success!
-                    String objectID = post.getObjectId();
 
-                } else {
-                    // Failure!
-                }
-            }
-        });*/
 
         final String stat = getIntent().getStringExtra("status");
         String desc1 = getIntent().getStringExtra("description1");
@@ -105,12 +79,11 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
-                //query.whereEqualTo("case_Status", stat);
+
                 query.getInBackground(no, new GetCallback<Case>() {
                     public void done(Case event, ParseException e) {
                         if (e == null) {
-                            // Now let's update it with some new data. In this case, only cheatMode and score
-                            // will get sent to the Parse Cloud. playerName hasn't changed.
+
                             Toast.makeText(getApplicationContext(), "Case Has been Accepted", Toast.LENGTH_LONG).show();
                         }
                         event.put("case_Status", "ARBITRATION");
@@ -125,12 +98,10 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParseQuery<ParseObject> query = new ParseQuery("Case");
-                //post.getParseObject("Case").getObjectId();
                 query.getInBackground(no, new GetCallback<ParseObject>() {
                     public void done(ParseObject event, ParseException e) {
                         if (e == null) {
-                            // Now let's update it with some new data. In this case, only cheatMode and score
-                            // will get sent to the Parse Cloud. playerName hasn't changed.
+
                             Toast.makeText(getApplicationContext(), "Case has been rejected", Toast.LENGTH_LONG).show();
                         }
                         event.put("case_Status", "PENDING");
@@ -139,55 +110,6 @@ public class DetailActivity extends AppCompatActivity {
                         startActivity(goToFactsList);
                     }
                 });
-            }
-        });
-    }
-
-    /*public void updateObject() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Case");
-
-        // Retrieve the object by id
-        query.getInBackground("<zQx5cs7Lo2>", new GetCallback<ParseObject>() {
-            public void done(ParseObject entity, ParseException e) {
-                if (e == null) {
-                    // Update the fields we want to
-                    /*entity.put("case_Bet_ID", new ParseObject("Bet"));
-                    entity.put("case_Date_Start", new Date());
-                    entity.put("case_Date_End", new Date());
-                    entity.put("case_Status", "DECLINED");
-                    /*entity.put("user1_Case", "A string");
-                    entity.put("user2_Case", "A string");
-                    entity.put("case_Arbitrator", ParseUser.getCurrentUser());
-
-                    // All other fields will remain the same
-                    entity.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e == null) {
-                                // No error, the object was saved
-                                Toast.makeText(getApplicationContext(), "Complete", Toast.LENGTH_LONG).show();
-                            } else {
-                                // Error saving object, print the logs
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }*/
-    private void saveCase(String status, ParseUser currentUser) {
-        Case cases = new Case();
-        cases.setKeyCaseStatus(status);
-        cases.setKeyCaseArbitrator(currentUser);
-        cases.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving", e);
-                    Toast.makeText(DetailActivity.this, "Error While Saving!", Toast.LENGTH_SHORT).show();
-                }
-                Log.i(TAG, "Case Save Successful");
             }
         });
     }
