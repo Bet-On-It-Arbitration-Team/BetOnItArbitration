@@ -2,6 +2,7 @@ package com.example.betonit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+
 import java.util.List;
 
 public class RatedCaseAdapter extends RecyclerView.Adapter<RatedCaseAdapter.ViewHolder> {
+    public static final String TAG = "RatedCaseAdapter";
 
     private Context context;
     private List<Case> posts;
@@ -61,17 +67,16 @@ public class RatedCaseAdapter extends RecyclerView.Adapter<RatedCaseAdapter.View
         {
             // Display Bet Name
             tvBetName.setText(post.getObjectId());
-//            tvBetChallengee.setText(post.get);
 
             contain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, post.getKeyCaseStatus(), Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(context, DetailActivity.class);
+                    Intent i = new Intent(context, RatedDetailActivity.class);
+                    i.putExtra("tvChallengerEvidence", post.getKeyCaseChallengerEvidence());
+                    i.putExtra("tvChallengeeEvidence", post.getKeyCaseChallengeeEvidence());
+                    i.putExtra("tvRatedCaseWinnerDesc", post.getKeyCaseBetWinnerDescription());
 
-                    // Set status for the
-                    i.putExtra("status", post.getKeyCaseStatus());
-//                    i.putExtra()
                     context.startActivity(i);
                 }
             });

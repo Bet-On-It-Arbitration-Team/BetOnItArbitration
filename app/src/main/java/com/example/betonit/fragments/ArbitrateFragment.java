@@ -61,6 +61,7 @@ public class ArbitrateFragment extends Fragment {
         BottomNavigationView bottomArbitrationNav = v.findViewById(R.id.bottom_arbitration_navigation);
         bottomArbitrationNav.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
+        // Keep this. It defaults the arbitratefragment to "My Cases"
         if (savedInstanceState == null)
         {
             bottomArbitrationNav.setSelectedItemId(R.id.action_my_cases);

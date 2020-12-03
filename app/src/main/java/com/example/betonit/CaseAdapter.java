@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,7 +63,7 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, post.getKeyCaseStatus(), Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(context, DetailActivity.class);
+                    Intent i = new Intent(context, PendingDetailActivity.class);
                     i.putExtra("status", post.getKeyCaseStatus());
                     i.putExtra("description1", post.getKeyCaseChallengerEvidence());
                     i.putExtra("description2", post.getKeyCaseChallengeeEvidence());

@@ -62,7 +62,7 @@ public class PendingCaseAdapter extends RecyclerView.Adapter<PendingCaseAdapter.
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, post.getKeyCaseStatus(), Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(context, DetailActivity.class);
+                    Intent i = new Intent(context, PendingDetailActivity.class);
                     i.putExtra("status", post.getKeyCaseStatus());
                     i.putExtra("description1", post.getKeyCaseChallengerEvidence());
                     i.putExtra("description2", post.getKeyCaseChallengeeEvidence());

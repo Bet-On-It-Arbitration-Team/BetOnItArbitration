@@ -65,8 +65,10 @@ public class RatedCasesFragment extends Fragment {
         // Define the class we would like to query
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         // Define our query conditions
-        query.whereEqualTo(Case.KEY_CASE_STATUS, "RESOLVED");
-        query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser());
+        query.whereEqualTo(Case.KEY_CASE_STATUS, "RESOLVED"); // Resolved case
+        query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser()); // not me
+        query.whereEqualTo(Case.KEY_CASE_ISRATED, false); // not rated
+        query.whereDoesNotExist(Case.KEY_CASE_RATER); // no rater
 
 
         // Similar to previous query, find the bet that matches the Case's BetId
