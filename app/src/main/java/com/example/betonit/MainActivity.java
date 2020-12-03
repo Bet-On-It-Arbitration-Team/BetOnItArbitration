@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         
         nvDrawer = findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
-
     }
 
     private ActionBarDrawerToggle setupDrawerToggle()
@@ -82,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_bet_fragment:
 //                    fragClass = BetFragment.class;
                 break;
-            case R.id.nav_arbitrate_fragment:
-                fragClass = ArbitrateFragment.class;
-                break;
             case R.id.nav_settings_fragment:
 //                fragClass = SettingsFragment.class;
                 break;
@@ -95,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 break;
+            case R.id.nav_arbitrate_fragment:
             default:
                 fragClass = ArbitrateFragment.class;
         }
@@ -143,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

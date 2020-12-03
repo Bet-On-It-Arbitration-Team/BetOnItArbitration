@@ -60,7 +60,6 @@ public class PendingCasesFragment extends Fragment {
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         // Define our query conditions
         query.whereEqualTo(Case.KEY_CASE_STATUS, "PENDING");
-        query.include(Case.KEY_CASE_STATUS);
 
         query.findInBackground(new FindCallback<Case>() {
             public void done(List<Case> cases, ParseException e) {

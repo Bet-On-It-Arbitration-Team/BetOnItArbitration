@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.betonit.Case;
 import com.example.betonit.CaseAdapter;
 import com.example.betonit.R;
+import com.example.betonit.RatedCaseAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -27,8 +28,10 @@ public class RatedCasesFragment extends Fragment {
 
     public static final String TAG = "RatedCasesFragment";
     private RecyclerView rvRatedCases;
-    protected CaseAdapter adapter;
+    protected RatedCaseAdapter adapter;
     protected List<Case> allPosts;
+
+
     public RatedCasesFragment() {
         // Required empty public constructor
 
@@ -46,7 +49,7 @@ public class RatedCasesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvRatedCases = view.findViewById(R.id.rvRatedCases);
         allPosts = new ArrayList<>();
-        adapter = new CaseAdapter(getContext(), allPosts);
+        adapter = new RatedCaseAdapter(getContext(), allPosts);
 
         rvRatedCases.setAdapter(adapter);
         rvRatedCases.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -59,8 +62,14 @@ public class RatedCasesFragment extends Fragment {
         // Define the class we would like to query
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         // Define our query conditions
-        query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser());
-        query.whereEqualTo(Case.KEY_CASE_STATUS, "RESOLVED");
+        query.whereEqualTo(Case.KEY_CASE_STATUS, "RESOLVED"); // Resolved case
+        query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser()); // not me
+        query.whereEqualTo(Case.KEY_CASE_ISRATED, false); // not rated
+        query.whereDoesNotExist(Case.KEY_CASE_RATER); // no rater
+
+
+        // Similar to previous query, find the bet that matches the Case's BetId
+
         // Execute the find asynchronously
         query.findInBackground(new FindCallback<Case>() {
             public void done(List<Case> cases, ParseException e) {

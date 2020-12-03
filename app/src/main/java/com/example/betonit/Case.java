@@ -11,14 +11,17 @@ public class Case extends ParseObject
 {
     public static final String KEY_CASE_STATUS = "case_Status";
     public static final String KEY_CASE_ARBITRATOR = "case_Arbitrator";
+    public static final String KEY_CASE_RATER = "case_Rater";
     public static final String KEY_CASE_BET_ID = "case_Bet_ID";
     public static final String KEY_CASE_DATE_START = "case_Date_Start";
     public static final String KEY_CASE_DATE_END = "case_Date_End";
     public static final String KEY_CASE_CHALLENGER_EVIDENCE = "user1_Case";
     public static final String KEY_CASE_CHALLENGEE_EVIDENCE = "user2_Case";
-    public static final String KEY_CASE_BET_WINNER = "case_Bet_Winner";
-    public static final String KEY_CASE_BET_WINNER_DESCRIPTION = "case_Bet_Winner_Desc";
-    public static final String KEY_CASE_WINNER = "case_Winner";
+    public static final String KEY_CASE_BET_WINNER = "case_Winner";
+    public static final String KEY_CASE_BET_WINNER_DESCRIPTION = "case_Winner_Desc";
+    public static final String KEY_CASE_ISRATED = "case_isRated";
+    public static final String KEY_CASE_RATING = "case_Rating";
+    public static final String KEY_CASE_RATING_DESC = "case_Rating_Desc";
 
     public String getKeyCaseStatus()
     {
@@ -33,6 +36,16 @@ public class Case extends ParseObject
     public ParseUser getKeyCaseArbitrator()
     {
         return getParseUser(KEY_CASE_ARBITRATOR);
+    }
+
+    public void setKeyCaseRater(ParseUser user)
+    {
+        put(KEY_CASE_RATER, user);
+    }
+
+    public ParseUser getKeyCaseRater()
+    {
+        return getParseUser(KEY_CASE_RATER);
     }
 
     public void setKeyCaseArbitrator(ParseUser user)
@@ -110,11 +123,33 @@ public class Case extends ParseObject
         put(KEY_CASE_BET_WINNER_DESCRIPTION, winnerDescription);
     }
 
-    public ParseUser getKeyCaseWinner(){
-        return getParseUser(KEY_CASE_WINNER);
-    }
-    public void setKeyCaseWinner(ParseUser user){
-        put(KEY_CASE_WINNER, user);
+    public Boolean getKeyCaseIsRated()
+    {
+        return getBoolean(KEY_CASE_ISRATED);
     }
 
+    public void setKeyCaseIsRated(Boolean isRated)
+    {
+        put(KEY_CASE_ISRATED, isRated);
+    }
+
+    public int getKeyCaseRating()
+    {
+        return getInt(KEY_CASE_RATING);
+    }
+
+    public void setKeyCaseRating(int rating)
+    {
+        put(KEY_CASE_RATING, rating);
+    }
+
+    public String getKeyCaseRateDes()
+    {
+        return getString(KEY_CASE_RATING_DESC);
+    }
+
+    public void setKeyCaseRateDes(String ratingDescrip)
+    {
+        put(KEY_CASE_RATING_DESC, ratingDescrip);
+    }
 }

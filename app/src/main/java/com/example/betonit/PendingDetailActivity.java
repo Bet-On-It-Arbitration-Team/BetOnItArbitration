@@ -18,8 +18,8 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity {
-    public static final String TAG = "DetailActivity";
+public class PendingDetailActivity extends AppCompatActivity {
+    public static final String TAG = "PendingDetailActivity";
     public String no;
     public String user;
     TextView tvUsername;
@@ -29,7 +29,6 @@ public class DetailActivity extends AppCompatActivity {
     Button prevclass;
     Button decline;
     Button accept;
-
 
 
     @Override
@@ -51,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         description1.setText(desc1);
         description2.setText(desc2);
 
+        // Search for Cases with the given status
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         query.whereEqualTo(Case.KEY_CASE_STATUS, stat);
         query.whereEqualTo(Case.KEY_CASE_CHALLENGER_EVIDENCE, desc1);
@@ -74,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         prevclass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                Intent goToFactsList = new Intent(PendingDetailActivity.this, MainActivity.class);
                 startActivity(goToFactsList);
             }
         });
@@ -86,14 +86,13 @@ public class DetailActivity extends AppCompatActivity {
                 query.getInBackground(no, new GetCallback<Case>() {
                     public void done(Case event, ParseException e) {
                         if (e == null) {
-
                             Toast.makeText(getApplicationContext(), "Case Has been Accepted", Toast.LENGTH_LONG).show();
                         }
                         event.put("case_Status", "ARBITRATION");
                         event.setKeyCaseArbitrator(ParseUser.getCurrentUser());
                         //event.put("case_Arbitrator", "BBkTRVg4nb");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(PendingDetailActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
@@ -111,7 +110,7 @@ public class DetailActivity extends AppCompatActivity {
                         }
                         event.put("case_Status", "PENDING");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(PendingDetailActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
