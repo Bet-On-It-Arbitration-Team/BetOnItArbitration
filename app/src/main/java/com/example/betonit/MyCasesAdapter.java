@@ -70,7 +70,7 @@ public class MyCasesAdapter extends RecyclerView.Adapter<MyCasesAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, post.getKeyCaseStatus(), Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(context, AcceptedActivity.class);
+                    Intent i = new Intent(context, MyCasesActivity.class);
                     i.putExtra("status", post.getKeyCaseStatus());
                     i.putExtra("description1", post.getKeyCaseChallengerEvidence());
                     i.putExtra("description2", post.getKeyCaseChallengeeEvidence());

@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvChallengerEvidence"
-        android:text="Challenger Description:"
+        android:text="Challengee Description:"
         android:textSize="22sp" />
 
     <TextView

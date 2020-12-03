@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.betonit.Case;
-import com.example.betonit.CaseAdapter;
 import com.example.betonit.R;
 import com.example.betonit.RatedCaseAdapter;
 import com.parse.FindCallback;
@@ -65,7 +64,7 @@ public class RatedCasesFragment extends Fragment {
         query.whereEqualTo(Case.KEY_CASE_STATUS, "RESOLVED"); // Resolved case
         query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser()); // not me
         query.whereEqualTo(Case.KEY_CASE_ISRATED, false); // not rated
-        query.whereDoesNotExist(Case.KEY_CASE_RATER); // no rater
+        query.whereNotEqualTo(Case.KEY_CASE_RATER, ParseUser.getCurrentUser()); // no rater
 
 
         // Similar to previous query, find the bet that matches the Case's BetId

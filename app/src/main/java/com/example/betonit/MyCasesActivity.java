@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +19,14 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-public class AcceptedActivity extends AppCompatActivity {
-    public static final String TAG = "DetailActivity";
+public class MyCasesActivity extends AppCompatActivity {
+    public static final String TAG = "MyCasesActivity";
     public String no;
     public String yes1;
     public String yes2;
     public String user;
     TextView tvUsername;
+    EditText editTextTextPersonName;
     TextView status2;
     TextView description1;
     TextView description2;
@@ -39,9 +41,9 @@ public class AcceptedActivity extends AppCompatActivity {
 
         tvUsername = findViewById(R.id.tvUsername);
         status2 = findViewById(R.id.status2);
+        editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
         description1 = findViewById(R.id.description1);
         description2 = findViewById(R.id.description2);
-        prevclass = findViewById(R.id.retbtn);
         chlnge = findViewById(R.id.chlnge);
         chlngr = findViewById(R.id.chlngr);
         prevclass = findViewById(R.id.rtnbtn2);
@@ -76,7 +78,7 @@ public class AcceptedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
-
+                final String windes = editTextTextPersonName.getText().toString();
                 query.getInBackground(no, new GetCallback<Case>() {
                     public void done(Case event, ParseException e) {
                         if (e == null) {
@@ -85,10 +87,11 @@ public class AcceptedActivity extends AppCompatActivity {
                         }
                         //Select challenger as winner
                         event.put("case_Status", "RESOLVED");
-                        event.setKeyCaseWinner(ParseUser.getCurrentUser());
+                        event.put("case_Winner_Desc", windes);
+                        event.setKeyCaseBetWinner(ParseUser.getCurrentUser());
                         //event.put("case_Arbitrator", "BBkTRVg4nb");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(AcceptedActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(MyCasesActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
@@ -99,7 +102,7 @@ public class AcceptedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
-
+                final String windes = editTextTextPersonName.getText().toString();
                 query.getInBackground(no, new GetCallback<Case>() {
                     public void done(Case event, ParseException e) {
                         if (e == null) {
@@ -108,10 +111,11 @@ public class AcceptedActivity extends AppCompatActivity {
                         }
                         //Select challenger as winner
                         event.put("case_Status", "RESOLVED");
-                        event.setKeyCaseWinner(ParseUser.getCurrentUser() );
+                        event.put("case_Winner_Desc", windes);
+                        event.setKeyCaseBetWinner(ParseUser.getCurrentUser() );
                         //event.put("case_Arbitrator", "BBkTRVg4nb");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(AcceptedActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(MyCasesActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
@@ -121,7 +125,7 @@ public class AcceptedActivity extends AppCompatActivity {
         prevclass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToFactsList = new Intent(AcceptedActivity.this, MainActivity.class);
+                Intent goToFactsList = new Intent(MyCasesActivity.this, MainActivity.class);
                 startActivity(goToFactsList);
             }
         });
