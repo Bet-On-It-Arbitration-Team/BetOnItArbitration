@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -14,19 +15,25 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.betonit.Case;
+import com.example.betonit.CaseAdapter;
 import com.example.betonit.R;
+import com.example.betonit.RatedCaseAdapter;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RatedCasesFragment extends Fragment {
 
     public static final String TAG = "RatedCasesFragment";
     private RecyclerView rvRatedCases;
+    protected RatedCaseAdapter adapter;
+    protected List<Case> allPosts;
+
 
     public RatedCasesFragment() {
         // Required empty public constructor
@@ -44,7 +51,12 @@ public class RatedCasesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvRatedCases = view.findViewById(R.id.rvRatedCases);
+        allPosts = new ArrayList<>();
+        adapter = new RatedCaseAdapter(getContext(), allPosts);
 
+        rvRatedCases.setAdapter(adapter);
+        rvRatedCases.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter.notifyDataSetChanged();
         queryRatedCases();
     }
 
@@ -53,8 +65,12 @@ public class RatedCasesFragment extends Fragment {
         // Define the class we would like to query
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         // Define our query conditions
-        query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser());
         query.whereEqualTo(Case.KEY_CASE_STATUS, "RESOLVED");
+        query.whereNotEqualTo(Case.KEY_CASE_ARBITRATOR, ParseUser.getCurrentUser());
+
+
+        // Similar to previous query, find the bet that matches the Case's BetId
+
         // Execute the find asynchronously
         query.findInBackground(new FindCallback<Case>() {
             public void done(List<Case> cases, ParseException e) {
@@ -69,6 +85,9 @@ public class RatedCasesFragment extends Fragment {
                 } else {
                     Log.e(TAG, "Error: " + e.getMessage(), e);
                 }
+
+                allPosts.addAll(cases);
+                adapter.notifyDataSetChanged();
             }
         });
     }

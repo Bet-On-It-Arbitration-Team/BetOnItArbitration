@@ -18,7 +18,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity {
+public class RatedDetailActivity extends AppCompatActivity {
     public static final String TAG = "DetailActivity";
     public String no;
     TextView tvUsername;
@@ -71,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         prevclass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                Intent goToFactsList = new Intent(RatedDetailActivity.this, MainActivity.class);
                 startActivity(goToFactsList);
             }
         });
@@ -87,7 +87,7 @@ public class DetailActivity extends AppCompatActivity {
                         }
                         event.put("case_Status", "ARBITRATION");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(RatedDetailActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
@@ -105,7 +105,7 @@ public class DetailActivity extends AppCompatActivity {
                         }
                         event.put("case_Status", "PENDING");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(RatedDetailActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });

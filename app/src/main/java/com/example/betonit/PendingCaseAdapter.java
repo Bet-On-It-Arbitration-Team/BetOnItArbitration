@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
+public class PendingCaseAdapter extends RecyclerView.Adapter<PendingCaseAdapter.ViewHolder> {
 
     private Context context;
     private List<Case> posts;
 
-    public CaseAdapter(Context context, List<Case> allPosts) {
+    public PendingCaseAdapter(Context context, List<Case> allPosts) {
         this.context = context;
         this.posts = allPosts;
     }
@@ -32,10 +31,9 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CaseAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PendingCaseAdapter.ViewHolder holder, int position) {
         Case post = posts.get(position);
         holder.bind(post);
-
     }
 
     @Override
@@ -71,7 +69,6 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
                     context.startActivity(i);
                 }
             });
-
         }
     }
     public void addAll(List<Case> list) {
