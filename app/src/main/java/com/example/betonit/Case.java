@@ -18,6 +18,7 @@ public class Case extends ParseObject
     public static final String KEY_CASE_CHALLENGEE_EVIDENCE = "user2_Case";
     public static final String KEY_CASE_BET_WINNER = "case_Bet_Winner";
     public static final String KEY_CASE_BET_WINNER_DESCRIPTION = "case_Bet_Winner_Desc";
+    public static final String KEY_CASE_WINNER = "case_Winner";
 
     public String getKeyCaseStatus()
     {
@@ -107,6 +108,13 @@ public class Case extends ParseObject
     public void setKeyCaseBetWinnerDescription(String winnerDescription)
     {
         put(KEY_CASE_BET_WINNER_DESCRIPTION, winnerDescription);
+    }
+
+    public ParseUser getKeyCaseWinner(){
+        return getParseUser(KEY_CASE_WINNER);
+    }
+    public void setKeyCaseWinner(ParseUser user){
+        put(KEY_CASE_WINNER, user);
     }
 
 }

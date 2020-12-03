@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.betonit.Case;
-import com.example.betonit.CaseAdapter;
+import com.example.betonit.MyCasesAdapter;
 import com.example.betonit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -27,7 +27,7 @@ public class MyCasesFragment extends Fragment {
 
     public static final String TAG = "MyCasesFragment";
     private RecyclerView rvMyCases;
-    protected CaseAdapter adapter;
+    protected MyCasesAdapter adapter;
     protected List<Case> allPosts;
 
     public MyCasesFragment() {
@@ -46,7 +46,7 @@ public class MyCasesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvMyCases = view.findViewById(R.id.rvMyCases);
         allPosts = new ArrayList<>();
-        adapter = new CaseAdapter(getContext(), allPosts);
+        adapter = new MyCasesAdapter(getContext(), allPosts);
 
         rvMyCases.setAdapter(adapter);
         rvMyCases.setLayoutManager(new LinearLayoutManager(getContext()));

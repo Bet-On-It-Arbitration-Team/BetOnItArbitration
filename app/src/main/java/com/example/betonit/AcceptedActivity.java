@@ -18,36 +18,38 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity {
+public class AcceptedActivity extends AppCompatActivity {
     public static final String TAG = "DetailActivity";
     public String no;
+    public String yes1;
+    public String yes2;
     public String user;
     TextView tvUsername;
-    TextView status;
+    TextView status2;
     TextView description1;
     TextView description2;
+    Button chlnge;
+    Button chlngr;
     Button prevclass;
-    Button decline;
-    Button accept;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_accepted);
+
         tvUsername = findViewById(R.id.tvUsername);
-        status = findViewById(R.id.status2);
+        status2 = findViewById(R.id.status2);
         description1 = findViewById(R.id.description1);
         description2 = findViewById(R.id.description2);
         prevclass = findViewById(R.id.retbtn);
-        decline = findViewById(R.id.decline);
-        accept = findViewById(R.id.accept);
+        chlnge = findViewById(R.id.chlnge);
+        chlngr = findViewById(R.id.chlngr);
+        prevclass = findViewById(R.id.rtnbtn2);
 
         final String stat = getIntent().getStringExtra("status");
         String desc1 = getIntent().getStringExtra("description1");
         String desc2 = getIntent().getStringExtra("description2");
-        status.setText(stat);
+        status2.setText(stat);
         description1.setText(desc1);
         description2.setText(desc2);
 
@@ -63,7 +65,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 for (Case case1 : cases) {
                     no = case1.getObjectId();
-
                     Log.i(TAG, "MyCase: " + case1.getKeyCaseBetId().getObjectId().toString());
                     Log.i(TAG, "Arbitrator: " + case1.getKeyCaseBetId().getObjectId().toString());
                 }
@@ -71,14 +72,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        prevclass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
-                startActivity(goToFactsList);
-            }
-        });
-        accept.setOnClickListener(new View.OnClickListener() {
+        chlngr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
@@ -87,34 +81,48 @@ public class DetailActivity extends AppCompatActivity {
                     public void done(Case event, ParseException e) {
                         if (e == null) {
 
-                            Toast.makeText(getApplicationContext(), "Case Has been Accepted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Case Has been Resolved", Toast.LENGTH_LONG).show();
                         }
-                        event.put("case_Status", "ARBITRATION");
-                        event.setKeyCaseArbitrator(ParseUser.getCurrentUser());
+                        //Select challenger as winner
+                        event.put("case_Status", "RESOLVED");
+                        event.setKeyCaseWinner(ParseUser.getCurrentUser());
                         //event.put("case_Arbitrator", "BBkTRVg4nb");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(AcceptedActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
             }
         });
-        decline.setOnClickListener(new View.OnClickListener() {
+
+        chlnge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseQuery<Case> query = new ParseQuery("Case");
+                ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
+
                 query.getInBackground(no, new GetCallback<Case>() {
                     public void done(Case event, ParseException e) {
                         if (e == null) {
 
-                            Toast.makeText(getApplicationContext(), "Case has been rejected", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Case Has been Resolved", Toast.LENGTH_LONG).show();
                         }
-                        event.put("case_Status", "PENDING");
+                        //Select challenger as winner
+                        event.put("case_Status", "RESOLVED");
+                        event.setKeyCaseWinner(ParseUser.getCurrentUser() );
+                        //event.put("case_Arbitrator", "BBkTRVg4nb");
                         event.saveInBackground();
-                        Intent goToFactsList = new Intent(DetailActivity.this, MainActivity.class);
+                        Intent goToFactsList = new Intent(AcceptedActivity.this, MainActivity.class);
                         startActivity(goToFactsList);
                     }
                 });
+            }
+        });
+
+        prevclass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToFactsList = new Intent(AcceptedActivity.this, MainActivity.class);
+                startActivity(goToFactsList);
             }
         });
     }

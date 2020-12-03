@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.betonit.Case;
-import com.example.betonit.CaseAdapter;
+import com.example.betonit.PendingCasesAdapter;
 import com.example.betonit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -26,7 +26,7 @@ public class PendingCasesFragment extends Fragment {
 
     public static final String TAG = "PendingCasesFragment";
     private RecyclerView rvPendingCases;
-    protected CaseAdapter adapter;
+    protected PendingCasesAdapter adapter;
     protected List<Case> allPosts;
 
     public PendingCasesFragment() {
@@ -45,7 +45,7 @@ public class PendingCasesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvPendingCases = view.findViewById(R.id.rvPendingCases);
         allPosts = new ArrayList<>();
-        adapter = new CaseAdapter(getContext(), allPosts);
+        adapter = new PendingCasesAdapter(getContext(), allPosts);
 
         rvPendingCases.setAdapter(adapter);
         rvPendingCases.setLayoutManager(new LinearLayoutManager(getContext()));
