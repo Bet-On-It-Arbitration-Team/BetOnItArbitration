@@ -1,11 +1,14 @@
 package com.example.betonit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +44,7 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout contain;
         private TextView tvUsername;
         private TextView tvDate;
         private TextView tvCaption;
@@ -52,15 +56,27 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
             //tvCaption = itemView.findViewById(R.id.tvCaption);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDate = itemView.findViewById(R.id.tvDate);
+            contain = itemView.findViewById(R.id.contain);
 
             //ivPostContent = itemView.findViewById(R.id.ivPostContent);
         }
 
-        public void bind(Case post)
+        public void bind(final Case post)
         {
             //tvCaption.setText(post.getCaption());
             tvUsername.setText(post.getKeyCaseStatus());
             tvDate.setText(post.getKeyCaseChallengerEvidence());
+            contain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, post.getKeyCaseStatus(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("status", post.getKeyCaseStatus());
+                    i.putExtra("description1", post.getKeyCaseChallengerEvidence());
+                    i.putExtra("description2", post.getKeyCaseChallengeeEvidence());
+                    context.startActivity(i);
+                }
+            });
             //ParseFile img = post.getImage();
 
             /*if(img!= null)

@@ -51,6 +51,7 @@ public class MyCasesFragment extends Fragment {
         rvMyCases.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter.notifyDataSetChanged();
         queryMyCases();
+
     }
 
     private void queryMyCases()
@@ -58,7 +59,8 @@ public class MyCasesFragment extends Fragment {
         // Define the class we would like to query
         ParseQuery<Case> query = ParseQuery.getQuery(Case.class);
         // Define our query conditions
-        query.include(Case.KEY_CASE_ARBITRATOR);
+        query.whereEqualTo(Case.KEY_CASE_STATUS, "ARBITRATION");
+        query.include(Case.KEY_CASE_STATUS);
         
         query.findInBackground(new FindCallback<Case>() {
             public void done(List<Case> cases, ParseException e) {
@@ -69,7 +71,7 @@ public class MyCasesFragment extends Fragment {
                 for (Case case1 : cases) {
 
                     Log.i(TAG, "MyCase: " + case1.getKeyCaseBetId().getObjectId().toString());
-                    Log.i(TAG, "Arbitrator: " + case1.getKeyCaseArbitrator().getObjectId().toString());
+                    Log.i(TAG, "Arbitrator: " + case1.getKeyCaseBetId().getObjectId().toString());
                 }
 
                 allPosts.addAll(cases);

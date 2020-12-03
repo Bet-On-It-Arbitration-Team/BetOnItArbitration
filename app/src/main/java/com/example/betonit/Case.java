@@ -10,12 +10,12 @@ import java.util.Date;
 public class Case extends ParseObject
 {
     public static final String KEY_CASE_STATUS = "case_Status";
-    public static final String KEY_CASE_ARBITRATOR = "arb_uID_Assigned";
+    public static final String KEY_CASE_ARBITRATOR = "case_Arbitrator";
     public static final String KEY_CASE_BET_ID = "case_Bet_ID";
     public static final String KEY_CASE_DATE_START = "case_Date_Start";
     public static final String KEY_CASE_DATE_END = "case_Date_End";
-    public static final String KEY_CASE_CHALLENGER_EVIDENCE = "user1_Case_Desc";
-    public static final String KEY_CASE_CHALLENGEE_EVIDENCE = "user2_Case_Desc";
+    public static final String KEY_CASE_CHALLENGER_EVIDENCE = "user1_Case";
+    public static final String KEY_CASE_CHALLENGEE_EVIDENCE = "user2_Case";
     public static final String KEY_CASE_BET_WINNER = "case_Bet_Winner";
     public static final String KEY_CASE_BET_WINNER_DESCRIPTION = "case_Bet_Winner_Desc";
 
